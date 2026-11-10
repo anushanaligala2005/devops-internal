@@ -1,1 +1,77 @@
 
+# College Attendance Management System
+
+students = {}
+
+def add_student():
+    roll_no = input("Enter Roll Number: ")
+    name = input("Enter Student Name: ")
+
+    students[roll_no] = {
+        "name": name,
+        "present": 0,
+        "absent": 0
+    }
+
+    print("Student added successfully!")
+
+def mark_attendance():
+    roll_no = input("Enter Roll Number: ")
+
+    if roll_no in students:
+        status = input("Enter P for Present or A for Absent: ").upper()
+
+        if status == "P":
+            students[roll_no]["present"] += 1
+            print("Marked as Present")
+        elif status == "A":
+            students[roll_no]["absent"] += 1
+            print("Marked as Absent")
+        else:
+            print("Invalid attendance status")
+    else:
+        print("Student not found!")
+
+def view_attendance():
+    roll_no = input("Enter Roll Number: ")
+
+    if roll_no in students:
+        student = students[roll_no]
+
+        total = student["present"] + student["absent"]
+
+        if total > 0:
+            percentage = (student["present"] / total) * 100
+        else:
+            percentage = 0
+
+        print("\n--- Attendance Details ---")
+        print("Name:", student["name"])
+        print("Roll Number:", roll_no)
+        print("Present:", student["present"])
+        print("Absent:", student["absent"])
+        print("Attendance:", round(percentage, 2), "%")
+    else:
+        print("Student not found!")
+
+while True:
+    print("\n===== COLLEGE ATTENDANCE SYSTEM =====")
+    print("1. Add Student")
+    print("2. Mark Attendance")
+    print("3. View Attendance")
+    print("4. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        add_student()
+    elif choice == "2":
+        mark_attendance()
+    elif choice == "3":
+        view_attendance()
+    elif choice == "4":
+        print("Thank you!")
+        break
+    else:
+        print("Invalid choice!")
+
